@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . "/validation.php";
+require_once __DIR__ . "/validation.php";
 
-require __DIR__ . "/sanitization.php";
+require_once __DIR__ . "/sanitization.php";
 function filter(array $data, array $fields, array $messages=[]) : array
 {
     $sanitization_rules = [];

@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/style.css">
-</head>
+    <?php require_once __DIR__ . '/../src/bootstrap.php' ?>
 
-<body class="d-flex align-items-center p-5 bg-dark text-white  ">
-    <main class="form-signin w-100 m-auto ">
-        <form class="needs-validation" novalidate>
+
+    <?php view('header',['title'=>'register']) ?>
+    
+
+    <?php 
+
+
+        if (is_post_request()) {
+
+            var_dump($_POST);
+        }
+    
+    ?>
+
+
+
+        <form class="needs-validation" action="register.php" method="post" novalidate>
             <div class="row p-3">
 
                 <div class="col-12">
@@ -27,9 +32,9 @@
                 </div>
                 <div class="col-12">
                     <div class="form-floating fw-bold   ">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        <input type="text" class="form-control" name="username" id="username" placeholder="name@example.com"
                             required>
-                        <label for="floatingInput">نام کاربری</label>
+                        <label for="username">نام کاربری</label>
 
                         <div class="valid-feedback">
                             عالیه
@@ -43,9 +48,9 @@
                 </div>
                 <div class="col-12">
                     <div class="form-floating fw-bold my-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com"
                             required>
-                        <label for="floatingInput">نشانی ایمیل</label>
+                        <label for="email">نشانی ایمیل</label>
 
                         <div class="valid-feedback">
                             عالیه
@@ -66,9 +71,9 @@
             <div class="row d-flex flex-row p-3 ">
                 <div class="col col-6 ">
                     <div class="form-floating fw-bold ">
-                        <input type="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" id="floatingPassword"
+                        <input type="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" name="password" id="password"
                             placeholder="Password" required>
-                        <label for="floatingPassword">رمز ورود</label>
+                        <label for="password">رمز ورود</label>
                         <div class="valid-feedback">
                             عالیه
                         </div>
@@ -80,9 +85,9 @@
 
                 <div class="col col-6">
                     <div class="form-floating fw-bold my-0">
-                        <input type="password" class="form-control " pattern="[a-zA-Z0-9]{8,}" id="floatingPassword"
+                        <input type="password" class="form-control " pattern="[a-zA-Z0-9]{8,}" name="password2" id="password2"
                             placeholder="Password" required>
-                        <label for="floatingPassword"> تکرار رمز ورود </label>
+                        <label for="password2"> تکرار رمز ورود </label>
                         <div class="valid-feedback">
                             عالیه
                         </div>
@@ -104,32 +109,6 @@
                     <p>  <p>اکانت دارید؟</p> <a class="link-primary" href="./signin.html">ورود اکانت</a></p>
                 </div>
         </div>
-    </main>
-
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
-    <script src="./script.js"></script>
-
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
-</body>
-
-</html>
+    
+    
+        <?php view('footer') ?>
