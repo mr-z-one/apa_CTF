@@ -9,8 +9,24 @@
 
 
         if (is_post_request()) {
+                $fields = [
+                    'username' => 'string | required | alphanumeric | between: 3, 25',
+                    'email' => 'email | required | email',
+                    'password' => 'string | required | secure',
+                    'password2' => 'string | required | same: password'
+                ];
 
-            var_dump($_POST);
+                // custom messages
+                $messages = [
+                    'password2' => [
+                        'required' => 'لطفا رمز را دوباره وارد کنید',
+                        'same' => 'رمز وارد شده یکسان نیست'
+                    ]
+                ];
+
+                [$inputs, $errors] = filter($_POST, $fields, $messages);
+            var_dump($inputs);
+            var_dump($errors);
         }
     
     ?>

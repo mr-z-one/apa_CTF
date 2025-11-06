@@ -1,16 +1,16 @@
 <?php
 
-
+//The %s must have between 8 and 64 characters and contain at least one number, one upper case letter, one lower case letter and one special character
 
 const DEFAULT_VALIDATION_ERRORS = [
-    'required' => 'Please enter the %s',
-    'email' => 'The %s is not a valid email address',
-    'min' => 'The %s must have at least %s characters',
-    'max' => 'The %s must have at most %s characters',
-    'between' => 'The %s must have between %d and %d characters',
-    'same' => 'The %s must match with %s',
-    'alphanumeric' => 'The %s should have only letters and numbers',
-    'secure' => 'The %s must have between 8 and 64 characters and contain at least one number, one upper case letter, one lower case letter and one special character',
+    'required' => 'لطفا مقدار %s را وارد کنید',
+    'email' => 'ایمیل %s معتبر نیست !!',
+    'min' => 'مقدار %s با حد اقل دارای  %s  کاراکتر باشد',
+    'max' => 'مقدار %s با حداکثر دارای  %s  کاراکتر باشد',
+    'between' => 'مقدار %s باید بین %d  و %d باشد',
+    'same' => 'مقدار %s باید با %s برابر باشد',
+    'alphanumeric' => 'مقدار %s باید شامل اعداد و حروف باشد',
+    'secure' => 'مقدار %s باید بین 8 و 64 کاراکتر باشد و حداقل دارای یک عدد یک حرف بزرگ و یک حرف کوچک و یک کراکتر خاص [-,?,@,#,$] باشد',
     'unique' => 'The %s already exists',
 ];
 
@@ -57,11 +57,13 @@ function validate(array $data, array $fields, array $messages = []): array
                 if (!$pass) {
                     // get the error message for a specific field and rule if exists
                     // otherwise get the error message from the $validation_errors
+                   
                     $errors[$field] = sprintf(
                         $messages[$field][$rule_name] ?? $validation_errors[$rule_name],
                         $field,
                         ...$params
                     );
+               
                 }
             }
         }
@@ -192,7 +194,7 @@ function is_secure(array $data, string $field): bool
         return false;
     }
 
-    $pattern = "#.*^(?=.{8,64})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$#";
+    $pattern = "/^(?=\P{Ll}*\p{Ll})(?=\P{Lu}*\p{Lu})(?=\P{N}*\p{N})(?=[\p{L}\p{N}]*[^\p{L}\p{N}])[\s\S]{8,}$/";
     return preg_match($pattern, $data[$field]);
 }
 
