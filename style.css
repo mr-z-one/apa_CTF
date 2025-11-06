@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "yekan";
+    src: url("./Font/BYekan+/BYekan+.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "yekan";
+    src: url("./fonts/BYekan+/BYekan+\ Bold.ttf");
+    font-weight: 700;
+}
+
+* {
+    font-family: "yekan";
+}
+
+.form-signin{
+    max-width: 450px;
+    padding: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+:root {
+    --offcanvas-width: 270px;
+    --topNavbarHeight:66.33px;
+}
+
+.sidebar-nav {
+    width: var(--offcanvas-width)!important;
+}
+
+hr{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  overflow: hidden;
+  border-top: 1.33px solid rgba(116, 115, 115, 255)
+}
+ li > a > span:hover{
+    color:rgb(59, 185, 97);
+}
+@media(min-width:992px) {
+    body{
+        overflow: auto !important;
+    }
+    main{
+        margin-right: var(--offcanvas-width );
+    }
+    .offcanvas-backdrop {
+        display: none !important;
+    }
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible !important;
+        top: var(--topNavbarHeight) !important;
+        height: calc(100% - var(--topNavbarHeight))!important ;
+    }
+
+}
