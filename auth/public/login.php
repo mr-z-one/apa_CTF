@@ -1,11 +1,10 @@
 <?php require_once __DIR__ . '/../../src/bootstrap.php' ?>
-<?php require_once __DIR__ . '/../../src/libs/connection.php' ?>
-<?php require_once __DIR__ . '/../../src/auth.php' ?>
+
 
 <?php view('header',['title'=>'login']) ?>
 
     <?php
-    var_dump($_SESSION['username']);
+    //  var_dump($_SESSION['username']);
             if (is_post_request()) {
             [$inputs, $errors] = filter($_POST, [
             'username' => 'string | required',
@@ -23,6 +22,11 @@
                 }
 
                 try {
+                      $user = find_user_by_username($inputs['username']);
+                        var_dump($user);    
+                        if ($user && !is_user_active($user)){
+                              redirect_with_message('/auth/login.php',"اکانت شما فعال نیست!");
+                        }
                     if (!login($inputs['username'], $inputs['password'])) {
                     
                     redirect_with_message('/auth/login.php',"نام کاربری یا رمز اشتباه هست");

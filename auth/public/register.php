@@ -1,7 +1,6 @@
 
 <?php require_once __DIR__ . '/../../src/bootstrap.php' ?>
- <?php require_once __DIR__ . '/../../src/libs/connection.php' ?>
- <?php require_once __DIR__ . '/../../src/auth.php' ?>
+
 
     <?php view('header',['title'=>'register']) ?>
     
@@ -44,11 +43,16 @@
     
                              redirect_with_message('/auth/login.php',"این حساب کاربری با مشخصات ایمیل یا نام کاربری موجود است" );
                         }
-    
-                        $result = register_user($inputs["email"],$inputs["username"],$inputs["password"]);
+
+                        //TDO : Send mail
+                        $activation_code = generate_activation_code();
+                        $email = $inputs["email"];
+                        $aCode =APP_URL . "/activate.php?email=$email&activation_code=$activation_code";
+
+                        $result = register_user($inputs["email"],$inputs["username"],$inputs["password"],$activation_code);
                         
                         if ($result){
-                             redirect_with_message('/auth/login.php',"اکانت شما با موفقیت ساخته شد");
+                             redirect_with_message('/auth/login.php','  اکانت شما با موفقیت ساخته شد برای فعال سازی ایمیل را برسی کنید' . $aCode);
                         }else{
                              redirect_with_message('/auth/register.php',"مشکلی در ساخت اکانت به وجود آمد");
                         }
