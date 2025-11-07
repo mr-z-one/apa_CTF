@@ -13,3 +13,100 @@ function register_user(string $email, string $username, string $password, bool $
 
     return $statement->execute();
 }
+
+function is_user_exist_by_username(string $username):bool{
+
+    if ($username === '') {
+        return false;
+    }
+
+    $sql = 'SELECT username FROM users WHERE username =:value';
+
+    $statement = db()->prepare($sql);
+    $statement->bindValue(':value', $username);
+
+    $statement->execute();
+
+    return $statement-> fetchColumn();
+
+}
+
+function is_user_exist_by_email(string $email):bool{
+
+    if ($email === '') {
+        return false;
+    }
+
+
+    $sql = 'SELECT email FROM users WHERE email = :value';
+
+    $statement = db()->prepare($sql);
+    $statement->bindValue(':value', $email);
+
+    $statement->execute();
+
+    return $statement-> fetchColumn() ;
+
+}
+
+function find_user_by_username(string $username)
+{
+    $sql = 'SELECT username, password
+            FROM users
+            WHERE username=:username';
+
+    $statement = db()->prepare($sql);
+    $statement->bindValue(':username', $username, PDO::PARAM_STR);
+    $statement->execute();
+
+    return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+function is_user_logged_in(): bool
+{
+    return isset($_SESSION['username']);
+}
+function require_login(): void
+{
+    if (!is_user_logged_in()) {
+        redirect_to('login.php');
+    }
+}
+
+function logout(): void
+{
+    if (is_user_logged_in()) {
+        unset($_SESSION['username'], $_SESSION['user_id']);
+        session_destroy();
+        redirect_to('login.php');
+    }
+}
+
+function current_user()
+{
+    if (is_user_logged_in()) {
+        return $_SESSION['username'];
+    }
+    return null;
+}
+
+function login(string $username, string $password): bool
+{
+    $user = find_user_by_username($username);
+
+    // if user found, check the password
+    if ($user && password_verify($password, $user['password'])) {
+
+        // prevent session fixation attack
+        session_regenerate_id();
+
+        // set username in the session
+        $_SESSION['username'] = $user['username'];
+        $_SESSION['user_id']  = $user['id'];
+
+
+        return true;
+    }
+
+    return false;
+}

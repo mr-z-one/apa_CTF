@@ -7,8 +7,9 @@
     
 
     <?php 
-
-            
+                    //         var_dump(is_user_exist_by_email("nr5391894@gmail.com") );
+                    //         echo"<br>";
+                    //  var_dump(is_user_exist_by_username("navid81") );
 
         if (is_post_request()) {
                 $fields = [
@@ -27,22 +28,34 @@
                 ];
 
                 [$inputs, $errors] = filter($_POST, $fields, $messages);
-                
-                if (!empty($errors)){
-                    $all_errors_message = [];
-                    foreach ($errors as $error=> $message) {
-                        array_push($all_errors_message,$message) ;
-                        break;
-                    }
-                    //var_dump($all_errors_message);
-                    redirect_with_messages('/auth/register.php',$all_errors_message,);
-                }else{
-                    $result = register_user($inputs["email"],$inputs["username"],$inputs["password"]);
+                try {
+                 
+                    if (!empty($errors)){
+                        $all_errors_message = [];
+                        foreach ($errors as $error=> $message) {
+                            array_push($all_errors_message,$message) ;
+                            break;
+                        }
+                        //var_dump($all_errors_message);
+                        redirect_with_messages('/auth/register.php',$all_errors_message,);
+                    }else{
+    
+                        if (is_user_exist_by_email($inputs['email']) || is_user_exist_by_username($inputs['username'])) {
+    
+                             redirect_with_message('/auth/login.php',"این حساب کاربری با مشخصات ایمیل یا نام کاربری موجود است" );
+                        }
+    
+                        $result = register_user($inputs["email"],$inputs["username"],$inputs["password"]);
+                        
+                        if ($result){
+                             redirect_with_message('/auth/login.php',"اکانت شما با موفقیت ساخته شد");
+                        }else{
+                             redirect_with_message('/auth/register.php',"مشکلی در ساخت اکانت به وجود آمد");
+                        }
                     
-                    if ($result){
-                         redirect_with_message('/auth/register.php',"اکانت شما با موفقیت ساخته شد");
                     }
-                
+                } catch (Exception $e) {
+                  redirect_with_message('/auth/register.php',"مشکلی هنگام انجام عملیات به وجود آمد به پشتیبانی اطلاع دهید");
                 }
                  
         }
@@ -140,8 +153,8 @@
                 </div>
             </div>
         </form>
-             <div class="col-12 d-flex justify-content-center my-2 gap-2">
-                    <p>  <p>اکانت دارید؟</p> <a class="link-primary" href="./signin.html">ورود اکانت</a></p>
+             <div class="col-12 d-flex fs-6 fw-bold justify-content-center my-2 gap-2">
+                    <p>  <p>اکانت دارید؟</p> <a class="link-primary" href="./login.php">ورود اکانت</a></p>
                 </div>
         </div>
     

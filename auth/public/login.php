@@ -1,18 +1,47 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<?php require_once __DIR__ . '/../../src/bootstrap.php' ?>
+<?php require_once __DIR__ . '/../../src/libs/connection.php' ?>
+<?php require_once __DIR__ . '/../../src/auth.php' ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="./bootstrap-5.3.8-dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="./bootstrap-icons.min.css">
-    <link rel="stylesheet" href="./style.css">
-</head>
+<?php view('header',['title'=>'login']) ?>
 
-<body class="d-flex align-items-center p-5 bg-dark text-white ">
-    <main class="form-signin w-100 m-auto ">
-        <form class="needs-validation" novalidate>
+    <?php
+    var_dump($_SESSION['username']);
+            if (is_post_request()) {
+            [$inputs, $errors] = filter($_POST, [
+            'username' => 'string | required',
+            'password' => 'string | required'
+        ]);
+
+            if (!empty($errors)){
+                    $all_errors_message = [];
+                    foreach ($errors as $error=> $message) {
+                        array_push($all_errors_message,$message) ;
+                        break;
+                    }
+                    //var_dump($all_errors_message);
+                    redirect_with_messages('/auth/login.php',$all_errors_message,);
+                }
+
+                try {
+                    if (!login($inputs['username'], $inputs['password'])) {
+                    
+                    redirect_with_message('/auth/login.php',"نام کاربری یا رمز اشتباه هست");
+
+                    }else{
+                        redirect_with_message('/auth/login.php',"نام کاربری یا رمز درست هست");
+                        //go to profile
+                    }
+                } catch (Exception $e) {
+                      redirect_with_message('/auth/login.php',"مشکلی هنگام انجام عملیات به وجود آمد به پشتیبانی اطلاع دهید");
+                }
+
+
+
+        }
+    ?>
+
+
+        <form class="needs-validation" action="login.php" method="post" novalidate>
             <div class="row p-3">
 
                 <div class="col-12">
@@ -28,9 +57,9 @@
 
                 <div class="col-12">
                     <div class="form-floating fw-bold   ">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com"
+                        <input type="text" class="form-control" name="username" id="username" placeholder="username"
                             required>
-                        <label for="floatingInput"> نام کاربری یا نشانی ایمیل </label>
+                        <label for="username"> نام کاربری  </label>
 
                         <div class="valid-feedback">
                             عالیه
@@ -41,9 +70,9 @@
                 </div>
                 <div class="col-12">
                     <div class="form-floating fw-bold my-4">
-                        <input type="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" id="floatingPassword" placeholder="Password"
+                        <input type="password" name="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" id="password" placeholder="Password"
                             required>
-                        <label for="floatingPassword">رمز ورود</label>
+                        <label for="password">رمز ورود</label>
                         <div class="valid-feedback">
                             عالیه
                         </div>
@@ -53,45 +82,23 @@
                     </div>
                 </div>
 
-                <div class="col-12">
-                    <div class="form-check text-start my-3"> <input class="form-check-input" type="checkbox"
+   
+
+            </div>
+            <div class="row p-1">
+                         <div class="col-12  d-flex justify-content-center">
+                    <!-- <div class="form-check text-start my-3"> <input class="form-check-input" type="checkbox"
                             value="remember-me" id="checkDefault"> <label class="form-check-label" for="checkDefault">
                             مرا به یاد بیاور
-                        </label> </div> <button class="btn btn-primary w-100 py-2" type="submit">ورود</button>
+                        </label>  -->
+                        <button class="btn  btn-primary w-50 py-2" type="submit">ورود</button>
+                    </div > 
 
                 </div>
-                <div class="col-12 d-flex justify-content-start my-2 gap-2">
-                    <p>  <p>اکانت ندارید؟</p> <a class="link-primary" href="./signup.html">ساخت اکانت</a></p>
+
+                <div class="col-12 d-flex fs-6 fw-bold justify-content-center my-2 gap-2">
+                    <p>  <p>اکانت ندارید؟</p> <a class="link-primary" href="./register.php">ساخت اکانت</a></p>
                 </div>
+            </div>
         </form>
-
-        </div>
-    </main>
-
-    <script src="./bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
-    <script src="./script.js"></script>
-
-    <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (() => {
-            'use strict'
-
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            // Loop over them and prevent submission
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
-</body>
-
-</html>
+    <?php view('footer') ?>
