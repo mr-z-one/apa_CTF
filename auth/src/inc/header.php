@@ -12,3 +12,4 @@
 
 <body class="d-flex align-items-center p-5 bg-dark text-white  ">
     <main class="form-signin w-100 m-auto ">
+        <?php flash();?>

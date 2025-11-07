@@ -25,14 +25,24 @@
                 ];
 
                 [$inputs, $errors] = filter($_POST, $fields, $messages);
-            var_dump($inputs);
-            var_dump($errors);
+                
+                if (!empty($errors)){
+                    $all_errors_message = [];
+                    foreach ($errors as $error=> $message) {
+                        array_push($all_errors_message,$message) ;
+                        break;
+                    }
+                    //var_dump($all_errors_message);
+                    redirect_with_messages('/auth/register.php',$all_errors_message,);
+                }
+                 
         }
     
     ?>
 
 
 
+    
         <form class="needs-validation" action="register.php" method="post" novalidate>
             <div class="row p-3">
 

@@ -35,11 +35,11 @@ function create_flash_message(string $name, string $message, string $type): void
 function format_flash_message(array $flash_message): string
 {
     $message = '<div class="row d-flex p-3 ">
-                <div class="alert alert-warning alert-dismissible my-2 fade show " role="alert">
-                    <span>حساب کاربری شما تکمیل نیس :) </span>
+                <div class="alert alert-%s alert-dismissible my-2 fade show " role="alert">
+                    <span>%s</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            </div> -->';
+            </div> ';
 
     return sprintf($message,
         $flash_message['type'],
