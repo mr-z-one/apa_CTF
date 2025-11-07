@@ -4,7 +4,7 @@
     <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
     <script src="./script.js"></script>
 
-    <!-- <script>
+    <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (() => {
             'use strict'
@@ -24,7 +24,7 @@
                 }, false)
             })
         })()
-    </script> -->
+    </script>
 </body>
 
 </html>

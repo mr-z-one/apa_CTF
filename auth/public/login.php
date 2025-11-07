@@ -32,7 +32,7 @@
                     redirect_with_message('/auth/login.php',"نام کاربری یا رمز اشتباه هست");
 
                     }else{
-                        redirect_with_message('/auth/login.php',"نام کاربری یا رمز درست هست");
+                        redirect_with_message('/profile/profile-challenge-list.php',"نام کاربری یا رمز درست هست");
                         //go to profile
                     }
                 } catch (Exception $e) {
