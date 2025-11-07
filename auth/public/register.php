@@ -1,12 +1,14 @@
 
-    <?php require_once __DIR__ . '/../../src/bootstrap.php' ?>
-
+<?php require_once __DIR__ . '/../../src/bootstrap.php' ?>
+ <?php require_once __DIR__ . '/../../src/libs/connection.php' ?>
+ <?php require_once __DIR__ . '/../../src/auth.php' ?>
 
     <?php view('header',['title'=>'register']) ?>
     
 
     <?php 
 
+            
 
         if (is_post_request()) {
                 $fields = [
@@ -34,6 +36,13 @@
                     }
                     //var_dump($all_errors_message);
                     redirect_with_messages('/auth/register.php',$all_errors_message,);
+                }else{
+                    $result = register_user($inputs["email"],$inputs["username"],$inputs["password"]);
+                    
+                    if ($result){
+                         redirect_with_message('/auth/register.php',"اکانت شما با موفقیت ساخته شد");
+                    }
+                
                 }
                  
         }
