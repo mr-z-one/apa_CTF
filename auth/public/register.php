@@ -123,7 +123,7 @@
             <div class="row d-flex flex-row p-3 ">
                 <div class="col col-6 ">
                     <div class="form-floating fw-bold ">
-                        <input type="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" name="password" id="password"
+                        <input type="password" class="form-control" pattern="[a-zA-Z0-9\W]{8,}" name="password" id="password"
                             placeholder="Password" required>
                         <label for="password">رمز ورود</label>
                         <div class="valid-feedback">
@@ -137,7 +137,7 @@
 
                 <div class="col col-6">
                     <div class="form-floating fw-bold my-0">
-                        <input type="password" class="form-control " pattern="[a-zA-Z0-9]{8,}" name="password2" id="password2"
+                        <input type="password" class="form-control " pattern="[a-zA-Z0-9\W]{8,}" name="password2" id="password2"
                             placeholder="Password" required>
                         <label for="password2"> تکرار رمز ورود </label>
                         <div class="valid-feedback">

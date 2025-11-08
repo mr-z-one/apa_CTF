@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-12">
                     <div class="form-floating fw-bold my-4">
-                        <input type="password" name="password" class="form-control" pattern="[a-zA-Z0-9]{8,}" id="password" placeholder="Password"
+                        <input type="password" name="password" class="form-control" pattern="[a-zA-Z0-9\W]{8,}" id="password" placeholder="Password"
                             required>
                         <label for="password">رمز ورود</label>
                         <div class="valid-feedback">
