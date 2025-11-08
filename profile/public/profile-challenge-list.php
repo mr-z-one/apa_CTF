@@ -1,17 +1,10 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<?php require_once __DIR__ . '/../../src/bootstrap.php'  ?>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/bootstrap-5.3.8-dist/css/bootstrap.rtl.min.css">
-    <link rel="stylesheet" href="/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="/style.css">
+    <?php view("profile_header",['title' => "challenge-list"]) ?>
 
-</head>
 
-<body style="background-color:#212529f7;">
+    <?php  require_login() ?>
+
     <!-- Modal exit -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -89,7 +82,7 @@
                     </li>
 
                     <li>
-                        <a href="./challenge-list.html" class="nav-link  px-3 active ">
+                        <a href="./profile-challenge-list.php" class="nav-link  px-3 active ">
                             <span class="me-2">
                                 <i class="bi bi-flag-fill" style="color:rgb(59, 185, 97);"></i>
                             </span>
@@ -107,7 +100,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="./show-Profile.html" class="nav-link px-3 active">
+                        <a href="./show-Profile.php" class="nav-link px-3 active">
                             <span class="me-2">
                                 <i class="bi bi-person-badge fs-4    "></i>
                             </span>
@@ -115,7 +108,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./Profile-submit.html" class="nav-link px-3 active">
+                        <a href="./Profile-submit.php" class="nav-link px-3 active">
                             <span class="me-2">
                                 <i class="bi bi-person-check fs-4    "></i>
                             </span>
@@ -318,10 +311,4 @@
             </div>
             <!--challenge modal-->
 
-
-    </main>
-    <script src="/bootstrap-5.3.8-dist/js/bootstrap.bundle.js"></script>
-    <script src="/script.js"></script>
-</body>
-
-</html>
+     <?php view("profile_footer") ?>

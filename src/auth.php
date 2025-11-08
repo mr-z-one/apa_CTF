@@ -74,7 +74,7 @@ function is_user_logged_in(): bool
 function require_login(): void
 {
     if (!is_user_logged_in()) {
-        redirect_to('login.php');
+        redirect_to('/auth/login.php');
     }
 }
 
