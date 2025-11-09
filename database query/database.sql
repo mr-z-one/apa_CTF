@@ -9,6 +9,7 @@ CREATE TABLE users
     password          varchar(255) NOT NULL,
     name              varchar(25),
     last_name         varchar(25),
+    gender            varchar(1),
     phone_number      varchar(11),
     active            tinyint(1)            DEFAULT 0,
     activation_code   varchar(255) NOT NULL,

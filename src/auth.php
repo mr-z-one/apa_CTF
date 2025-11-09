@@ -1,5 +1,5 @@
 <?php 
-function register_user(string $email, string $username, string $password, string $activation_code, int $expiry = 3600): bool
+function register_user(string $email, string $username, string $password, string $activation_code, int $expiry = 1*24*60*60): bool
 {
     $sql = 'INSERT INTO users(username, email, password, activation_code, activation_expiry)
             VALUES(:username, :email, :password, :activation_code,:activation_expiry)';

@@ -128,13 +128,7 @@
     <main class="mt-5 pt-4 ">
         <div class="container-fluid">
             <!--error-->
-            <div class="row d-flex p-3 ">
-                <div class="alert alert-warning alert-dismissible my-2 fade show " role="alert">
-                    <span>حساب کاربری شما تکمیل نیس :) </span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-
-            </div>
+            <?php flash(); ?>
             <!--error-->
             <form action="#" class="needs-validation" method="post" novalidate>
 
