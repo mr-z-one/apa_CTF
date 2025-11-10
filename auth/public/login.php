@@ -2,7 +2,13 @@
 
 
 <?php view('header',['title'=>'login']) ?>
+    <?php 
+        if (is_user_logged_in()){
+                        $names_user = $_SESSION['username'];
+                        redirect_with_message('/profile/profile-challenge-list.php', $names_user . " " ."خوش آمدید!" );
+        }
 
+    ?>
     <?php
     //  var_dump($_SESSION['username']);
             if (is_post_request()) {
@@ -23,7 +29,7 @@
 
                 try {
                       $user = find_user_by_username($inputs['username']);
-                        var_dump($user);    
+                       // var_dump($user);    
                         if ($user && !is_user_active($user)){
                               redirect_with_message('/auth/login.php',"اکانت شما فعال نیست!");
                         }
@@ -32,7 +38,8 @@
                     redirect_with_message('/auth/login.php',"نام کاربری یا رمز اشتباه هست");
 
                     }else{
-                        redirect_with_message('/profile/profile-challenge-list.php',"نام کاربری یا رمز درست هست");
+                        $names_user = $_SESSION['username'];
+                        redirect_with_message('/profile/profile-challenge-list.php', $names_user . " " ."خوش آمدید!" );
                         //go to profile
                     }
                 } catch (Exception $e) {

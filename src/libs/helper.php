@@ -132,19 +132,19 @@ $oldmask = umask(0);
 function upload_file($file_name,array $allowed_file=["image/png"=>"png"],$base_dire='/../../uploads',$max_size = 5 * 1024 * 1024):string
 {
 
-    $file = $_FILES[$file_name];
-
-     
+    
+    
     $base_dire = __DIR__ . $base_dire;
     $upload_dir = create_date_dir($base_dire);
-   
-     $has_file = isset($_FILES[$file_name]);
-
-
-        if (!$has_file){
-
-            return "error:file dont exist";
-        }
+    
+    $has_file = isset($_FILES[$file_name]);
+    
+    
+    if (!$has_file){
+        
+        return "error:file dont exist";
+    }
+    $file = $_FILES[$file_name];
 
 
     $status = $_FILES[$file_name]['error'];

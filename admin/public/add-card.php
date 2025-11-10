@@ -103,6 +103,7 @@
 </head>
 <body>
 
+<?php require_once __DIR__ . "/../inc/admin.model.php" ?>
   <div class="container">
     <!-- پیام موفقیت -->
     <div id="message" class="message">
@@ -110,7 +111,23 @@
      
    
      if (is_post_request()){
-       echo upload_file("image");
+
+      $challengeLink = $_POST['challengeLink'];
+      $name          = $_POST['name'];
+      $description   = $_POST['description'];
+      
+      $src_image = upload_file("image",["image/jpeg"=>"jpeg"]);
+      if (strpos($src_image,"error",0)!==false){
+          echo "". $src_image ."";
+      
+      }else{
+         if (add_card($name,$description,$challengeLink,$src_image)){
+          echo "با موفقیت اضافه شد";
+         }else{
+           echo "ثبت چالش با مشکل مواجه شد";
+         }
+      }
+       //echo upload_file("image");
      }
       
     
