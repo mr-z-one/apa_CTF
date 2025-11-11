@@ -183,17 +183,24 @@ function upload_file($file_name,array $allowed_file=["image/png"=>"png"],$base_d
 
 }
 
-
-function session_flash(...$keys): array
-{
-    $data = [];
-    foreach ($keys as $key) {
-        if (isset($_SESSION[$key])) {
-            $data[] = $_SESSION[$key];
-            unset($_SESSION[$key]);
-        } else {
-            $data[] = [];
-        }
+    function sformat($template, $params) {
+        return str_replace(
+            array_map(function($v){return '{'.$v.'}';},array_keys($params)),
+            $params,
+            $template
+        );
     }
-    return $data;
-}
+
+// function session_flash(...$keys): array
+// {
+//     $data = [];
+//     foreach ($keys as $key) {
+//         if (isset($_SESSION[$key])) {
+//             $data[] = $_SESSION[$key];
+//             unset($_SESSION[$key]);
+//         } else {
+//             $data[] = [];
+//         }
+//     }
+//     return $data;
+// }

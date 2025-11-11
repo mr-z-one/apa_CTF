@@ -1,6 +1,8 @@
 <?php require_once __DIR__ . '/../../src/bootstrap.php'  ?>
 <?php require_once __DIR__ . '/../inc/profile-challenge-list.view.php'?>
 
+<?php require_once __DIR__ . "/../inc/profile-challenge-list.model.php" ?>
+
     <?php view("profile_header",['title' => "challenge-list"]) ?>
 
 
@@ -126,7 +128,7 @@
         </div>
     </div>
     <!--off canvas-->
-
+    
     <main class="mt-5 pt-4 ">
         <div class="container-fluid ">
             <!--error-->
@@ -135,7 +137,20 @@
             <!--challenge card-->
             <div class="row  ">
                 
-                <?php  echo create_challenge_card("/uploads/2025/11/10/1762760496.jpeg","گرریز") ?>
+                <?php $challenge_cards = get_all_challenge_card(); ?>
+
+                <?php
+
+                foreach ($challenge_cards as $challenge_card) {
+
+                    echo create_challenge_card("/".$challenge_card["src_image"],$challenge_card["name"],"#".$challenge_card["id"],$challenge_card["is_active"]) ;
+
+                }
+                
+                  
+                
+                 
+                  ?>
 
 
 
@@ -148,7 +163,13 @@
     <!--challenge modal-->
         <?php 
         
-        echo create_challenge_modal_card("staticBackdrop"," <a href='a.com'>link</a> این یک مسابقه هست","1");
+         foreach ($challenge_cards as $challenge_card) {
+            
+            if ($challenge_card["is_active"] == 1)
+             echo create_challenge_modal_card($challenge_card["id"],$challenge_card["description"],$challenge_card["id"]);
+        }
+
+        
           ?>
        
             <!--challenge modal-->

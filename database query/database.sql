@@ -20,13 +20,13 @@ CREATE TABLE users
 
 );
 
-
 CREATE TABLE challenge_cards
 (
     id                int auto_increment PRIMARY KEY,
     name              varchar(25) NOT NULL,
-    src_image         varchar(255),NOT NULL 
-    description       MEDIUMTEXT,NOT NULL
+    src_image         varchar(255)NOT NULL ,
+    is_active         tinyint(1)            DEFAULT 0,
+    description       MEDIUMTEXT NOT NULL,
 	challenge_link	  varchar(255) NOT NULL,
     created_at        timestamp    NOT NULL DEFAULT current_timestamp(),
     updated_at        datetime              DEFAULT current_timestamp() ON UPDATE current_timestamp()

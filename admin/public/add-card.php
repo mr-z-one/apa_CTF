@@ -115,13 +115,14 @@
       $challengeLink = $_POST['challengeLink'];
       $name          = $_POST['name'];
       $description   = $_POST['description'];
-      
+      $is_active = !isset($_POST['is_active']) ? false : true;
+
       $src_image = upload_file("image",["image/jpeg"=>"jpeg"]);
       if (strpos($src_image,"error",0)!==false){
           echo "". $src_image ."";
       
       }else{
-         if (add_card($name,$description,$challengeLink,$src_image)){
+         if (add_card($name,$description,$challengeLink,$src_image,$is_active)){
           echo "با موفقیت اضافه شد";
          }else{
            echo "ثبت چالش با مشکل مواجه شد";
@@ -143,6 +144,9 @@
 
       <label for="challengeLink">لینک چلنج:</label>
       <input type="url" id="challengeLink" name="challengeLink" placeholder="https://example.com" required>
+
+      <label for="is_active">فعال :</label>
+      <input type="checkbox" id="is_active" name="is_active">
 
       <label for="image">آپلود عکس:</label>
       <input type="file" id="image" name="image" accept="image/*" required>
