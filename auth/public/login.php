@@ -3,10 +3,10 @@
 
 <?php view('header',['title'=>'login']) ?>
     <?php 
-        if (is_user_logged_in()){
-                        $names_user = $_SESSION['username'];
-                        redirect_with_message('/profile/profile-challenge-list.php', $names_user . " " ."خوش آمدید!" );
-        }
+        // if (is_user_logged_in()){
+        //                 $names_user = $_SESSION['username'];
+        //                 redirect_with_message('/profile/profile-challenge-list.php', $names_user . " " ."خوش آمدید!" );
+        // }
 
     ?>
     <?php

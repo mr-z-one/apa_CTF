@@ -5,6 +5,7 @@ require __DIR__ . '/../../src/bootstrap.php';
 if (is_get_request()) {
 
     // sanitize the email & activation code
+    //TDO FALSE POSITIVE
     [$inputs, $errors] = filter($_GET, [
         'email' => 'string | required | email',
         'activation_code' => 'string | required'
@@ -20,11 +21,16 @@ if (is_get_request()) {
                 'login.php',
                 'اکانت شما فعال شد لطفا وارد شوید'
             );
+        }else{
+                redirect_with_message(
+                'login.php',
+                'ارور در فعال سازی اکانت'
+            );
         }
     }else{
             redirect_with_message(
         'login.php',
-        'لینک فعال سازی معتبر نیست'
+        'ارور در پردازش داده به پشتبیانی پیام دهید'
         );
     }
 }

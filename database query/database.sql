@@ -32,3 +32,15 @@ CREATE TABLE challenge_cards
     updated_at        datetime              DEFAULT current_timestamp() ON UPDATE current_timestamp()
 
 );
+
+CREATE TABLE submit_flags (
+	user_id INT NOT NULL,
+	challenge_id INT  NOT NULL,
+    flag  VARCHAR(37) NOT NULL,
+	
+    PRIMARY KEY (user_id,challenge_id),
+    
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (challenge_id) REFERENCES challenge_cards(id)
+
+);
