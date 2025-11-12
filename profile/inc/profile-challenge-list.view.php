@@ -77,7 +77,7 @@ function create_challenge_modal_card(string $id_modal,string $description,string
 
                             <div class="tab-pane fade" id="{writeup}" role="tabpanel" aria-labelledby="profile-tab"
                                 tabindex="0">
-                                <form action="/profile/upload_writeup.php?id={challenge_id}" method="post">
+                                <form action="/profile/upload-writeup.php?id={challenge_id}" method="post">
                                     <div class="mb-3">
                                         <label for="formFile" class="form-label">بارگذاری رایتاپ :</label>
                                         <div class="input-group mb-3">
