@@ -77,12 +77,12 @@ function create_challenge_modal_card(string $id_modal,string $description,string
 
                             <div class="tab-pane fade" id="{writeup}" role="tabpanel" aria-labelledby="profile-tab"
                                 tabindex="0">
-                                <form action="/profile/upload-writeup.php?id={challenge_id}" method="post">
+                                <form action="/profile/upload-writeup.php?id={challenge_id}" method="post" enctype="multipart/form-data">
                                     <div class="mb-3">
-                                        <label for="formFile" class="form-label">بارگذاری رایتاپ :</label>
+                                        <label for="pdf" class="form-label">بارگذاری رایتاپ :</label>
                                         <div class="input-group mb-3">
 
-                                            <input class="form-control" type="file" id="formFile">
+                                            <input class="form-control" type="file" id="pdf" name="pdf" accept="application/pdf">
                                             <button class="btn btn-outline-danger fw-bolder" type="submit"
                                                 id="button-addon2">ثبت</button>
                                         </div>

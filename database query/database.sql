@@ -44,3 +44,16 @@ CREATE TABLE submit_flags (
     FOREIGN KEY (challenge_id) REFERENCES challenge_cards(id)
 
 );
+
+
+CREATE TABLE submit_writeup (
+	user_id INT NOT NULL,
+	challenge_id INT  NOT NULL,
+    url  VARCHAR(255) NOT NULL,
+	
+    PRIMARY KEY (user_id,challenge_id),
+    
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (challenge_id) REFERENCES challenge_cards(id)
+
+);
