@@ -8,6 +8,12 @@
 
     <?php  require_login() ?>
 
+    <?php 
+
+        if (!is_get_request()){
+        redirect_to("profile/profile-challenge-list.php"); 
+        }
+    ?>
     <!-- Modal exit -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -22,7 +28,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">خیر</button>
-                    <button type="button" class="btn btn-primary">بله</button>
+                    <form action="logout.php" method="post">
+                        
+                        <button type="submit" class="btn btn-primary">بله</button>
+                    </form>
                 </div>
             </div>
         </div>

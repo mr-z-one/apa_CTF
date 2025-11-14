@@ -1,9 +1,74 @@
 <?php require_once __DIR__ . '/../../src/bootstrap.php'  ?>
+<?php require_once __DIR__ . '/../inc/show-Profile.model.php'  ?>
+<?php require_once __DIR__ . '/../inc/Profile-submit.model.php'  ?>
 
     <?php view("profile_header",['title' => "challenge-list"]) ?>
 
 
     <?php  require_login() ?>
+
+         <?php 
+    
+        if (is_post_request()){
+          
+
+           $fields = [
+                    "name" => "string|required",
+                    "last_name" => "string|required",
+                    "phone_number" => "string|required |between: 11,11",
+                    "gender" => "string|required | between: 1,1"
+                    
+
+                    ];
+
+            [$inputs,$error] = filter($_POST, $fields);
+
+            $user_id = $_SESSION["user_id"];
+            if (! empty($error)) {
+                redirect_with_message("Profile-submit.php",reset( $error ));
+            }
+
+
+            $update_result = update_user_data( $user_id, $inputs["name"],$inputs["last_name"],$inputs["phone_number"],$inputs["gender"]);
+
+            if ($update_result) {
+                redirect_with_message("Profile-submit.php","پروفایل با موفقیت تکمیل شد");
+            }
+        }
+    
+    ?>  
+
+    <?php
+
+        if (!is_get_request()){
+           redirect_to("Profile-submit.php");
+        }
+    
+    ?>
+
+
+            <?php 
+        $user_data = get_user($_SESSION["user_id"]);
+
+        $name = $user_data["name"] ?? "";
+        $last_name = $user_data["last_name"] ?? "";
+
+        $phone_number = $user_data["phone_number"] ?? "";
+
+
+        $is_male = "";
+        $is_female = "";
+
+        $gender = $user_data["gender"] ??"";
+
+        if (strtolower($gender) == "m") {
+            $is_male = "checked ";
+        }else if (strtolower($gender) == "f") {
+            $is_female = "checked ";
+        }
+
+    ?>
+
     <!-- Modal exit -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -18,7 +83,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">خیر</button>
-                    <button type="button" class="btn btn-primary">بله</button>
+                  <form action="logout.php" method="post">
+                        
+                        <button type="submit" class="btn btn-primary">بله</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -130,7 +198,7 @@
             <!--error-->
             <?php flash(); ?>
             <!--error-->
-            <form action="#" class="needs-validation" method="post" novalidate>
+            <form action="Profile-submit.php" class="needs-validation" method="post" novalidate>
 
 
 
@@ -138,7 +206,7 @@
 
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control  id=" name" placeholder="نام" required>
+                            <input type="text" class="form-control"name ="name"  id="name" placeholder="نام" value= "<?php echo $name; ?>" required>
                             <label for="name">نام</label>
 
                             <div class="valid-feedback">
@@ -152,7 +220,7 @@
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control " id="l-name" placeholder="نام خانوادگی" required>
+                            <input type="text" class="form-control " id="last_name" name ="last_name" placeholder="نام خانوادگی" value= "<?php echo $last_name; ?>" required>
                             <label for="l-name">نام خانوادگی</label>
 
                             <div class="valid-feedback">
@@ -171,7 +239,7 @@
 
                     <div class="col-12">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="phone" pattern="09\d{9}" placeholder="09xxxxx" required>
+                            <input type="text" class="form-control" id="phone_number" name ="phone_number" pattern="09\d{9}" placeholder="09xxxxx"  value="<?php echo $phone_number; ?>" required>
                             <label for="phone">شماره تماس</label>
 
                             <div class="valid-feedback">
@@ -191,16 +259,16 @@
                     </div>
                     <div class="col">
                         <div class="form-check text-white" >
-                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault1"required>
-                            <label class="form-check-label" for="radioDefault1">
+                            <input class="form-check-input" type="radio" name="gender" value="m" id="m" <?php echo $is_male ; ?> required>
+                            <label class="form-check-label" for="m">
                                 مرد
                             </label>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-check text-white">
-                            <input class="form-check-input" type="radio" name="radioDefault" id="radioDefault2"required >
-                            <label class="form-check-label" for="radioDefault2">
+                            <input class="form-check-input" type="radio" name="gender" value="f" id="f" <?php echo $is_female ; ?> required >
+                            <label class="form-check-label" for="f">
                                 زن
                             </label>
                         </div>
@@ -216,7 +284,8 @@
 
             </form>
 
-        </div>
+        </div>  
 
+ 
              <?php view("profile_footer") ?>
    

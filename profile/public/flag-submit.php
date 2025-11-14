@@ -31,7 +31,8 @@ try {
     if (is_flag_submitted( $user_id, $challenge_id )) {
         redirect_with_message("profile-challenge-list.php","فلگ توسط کاربر ثبت شده است!");
     }
-    
+    //TODO: check for is challenge is active?
+
     if (submitted_flag( $user_id, $challenge_id, $txt_flag )) {
     
          redirect_with_message("profile-challenge-list.php","فلگ با موفقیت ثبت گردید!");

@@ -33,6 +33,8 @@ if (is_writeup_submitted($user_id,$challenge_id)) {
         redirect_with_message("profile-challenge-list.php","کاربر رایتاپ خود را اپلود کرده");
 }
 
+//TODO: check for is challenge is active?
+
 if (submitted_writeup($user_id,$challenge_id,$src_writeup)) {
 
         redirect_with_message("profile-challenge-list.php","رایتاپ با موفقیت ثبت گردید");

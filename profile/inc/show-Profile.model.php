@@ -5,6 +5,7 @@ require_once __DIR__ . '/../../src/libs/connection.php' ;
 
 
 
+
 function get_user($user_id):array{
 
     $sql = "SELECT username,email,name,last_name,gender,phone_number from users WHERE id=:user_id";
