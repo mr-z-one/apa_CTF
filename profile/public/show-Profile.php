@@ -1,4 +1,5 @@
-<?php require_once __DIR__ . '/../../src/bootstrap.php'  ?>
+<?php require_once __DIR__ . '/../../src/bootstrap.php' ; ?>
+<?php require_once __DIR__ . '/../inc/show-Profile.model.php'  ?>
 
     <?php view("profile_header",['title' => "challenge-list"]) ?>
 
@@ -125,6 +126,32 @@
         </div>
     </div>
 
+    <?php 
+        $user_data = get_user($_SESSION["user_id"]);
+
+        $name = $user_data["name"] ?? "-";
+        $last_name = $user_data["last_name"] ?? "-";
+
+        $phone_number = $user_data["phone_number"] ?? "-";
+
+        $username = $user_data["username"] ?? "-";
+        $email = $user_data["email"] ??"-";
+
+        $is_male = "";
+        $is_female = "";
+
+        $gender = $user_data["gender"] ??"";
+
+        if (strtolower($gender) == "m") {
+            $is_male = "checked ";
+        }else if (strtolower($gender) == "f") {
+            $is_female = "checked ";
+        }
+
+    ?>
+
+    
+
     <!--off canvas-->
     <main class="mt-5 pt-4 ">
         <div class="container-fluid">
@@ -139,14 +166,14 @@
 
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" value="نوید" disabled id="name" placeholder="نام">
+                            <input type="text" class="form-control" value= "<?php echo $name; ?>"  disabled id="name" placeholder="نام">
                             <label for="name">نام</label>
                         </div>
 
                     </div>
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="l-name" value="رضایی" disabled placeholder="نام خانوادگی">
+                            <input type="text" class="form-control" id="l-name" value= "<?php echo $last_name; ?>" disabled placeholder="نام خانوادگی">
                             <label for="l-name">نام خانوادگی</label>
                         </div>
                     </div>
@@ -155,7 +182,7 @@
 
                     <div class="col-12">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="phone"value="09103914576" disabled>
+                            <input type="text" class="form-control" id="phone"disabled  value="<?php echo $phone_number; ?>"  >
                             <label for="phone">شماره تماس</label>
                         </div>
 
@@ -166,14 +193,14 @@
                     <div class="col">
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="username" placeholder="نام" disabled
-                                value="navid_81">
+                                value= "<?php echo $username; ?>">
                             <label for="username">نام کاربری</label>
                         </div>
 
                     </div>
                     <div class="col">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="email" disabled value="gg@gmail.com">
+                            <input type="text" class="form-control" id="email" disabled value= "<?php echo $email; ?>">
                             <label for="email">ایمیل</label>
                         </div>
 
@@ -185,7 +212,7 @@
                     </div>
                     <div class="col">
                         <div class="form-check text-white">
-                            <input class="form-check-input" disabled type="radio" name="radioDefault" id="radioDefault1" checked>
+                            <input class="form-check-input" disabled type="radio" name="radioDefault" id="radioDefault1" <?php echo $is_male ; ?> >
                             <label class="form-check-label" for="radioDefault1">
                                 مرد
                             </label>
@@ -193,7 +220,7 @@
                     </div>
                     <div class="col">
                         <div class="form-check text-white ">
-                            <input class="form-check-input" disabled type="radio" name="radioDefault" id="radioDefault2" >
+                            <input class="form-check-input" disabled type="radio" name="radioDefault" id="radioDefault2" <?php echo $is_female ; ?> >
                             <label class="form-check-label" for="radioDefault2">
                                 زن
                             </label>
